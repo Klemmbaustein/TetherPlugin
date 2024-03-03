@@ -174,7 +174,7 @@
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>cd $(SolutionDir) &amp;&amp; pwsh .\CreatePackage.ps1</Command>
+      <Command>cd $(SolutionDir) &amp;&amp; pwsh .\CreatePackage.ps1 $(TitanfallDir) $(ProfileName)</Command>
     </PostBuildEvent>
     <CustomBuildStep>
       <Command>

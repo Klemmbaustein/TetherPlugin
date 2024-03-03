@@ -1,0 +1,14 @@
+<Project>
+  
+  <!-- Properties used for debugging the mod. -->
+  <PropertyGroup>
+	
+	<!-- The path to your titanfall 2 installation. -->
+	<TitanfallDir>Your game path here</TitanfallDir>
+	
+	<!-- The name of the profile the package should be placed into. Leave empty to ignore. -->
+	<ProfileName></ProfileName>
+	
+  </PropertyGroup>
+  
+</Project>
