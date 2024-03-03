@@ -1,4 +1,4 @@
-# Tether Installer Northstar Plugin/mod
+# Tether Installer Plugin
 
 Based on [Uniboi's Northstar plugin template](https://github.com/uniboi/NSPluginTemplate).
 Very WIP.

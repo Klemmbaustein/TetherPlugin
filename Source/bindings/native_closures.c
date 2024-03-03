@@ -26,7 +26,7 @@ SQRESULT Script_TetherCheckReloadMods(HSquirrelVM* sqvm)
 SQRESULT Script_TetherCheckConnectServer(HSquirrelVM* sqvm)
 {
 	SQRelay* api = sqapi(SC_UI);
-
+	
 	api->sq_pushstring(sqvm, tether_newMapBuffer, strlen(tether_newMapBuffer));
 	memset(tether_newMapBuffer, 0, sizeof(tether_newMapBuffer));
 
