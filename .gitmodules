@@ -1,0 +1,3 @@
+[submodule "TetherInstaller"]
+	path = TetherInstaller
+	url = https://github.com/Klemmbaustein/TetherInstaller.git

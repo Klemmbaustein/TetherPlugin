@@ -3,7 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34607.79
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Source", "Source\Source.vcxproj", "{5BC03E6C-E852-4A3A-8C72-065ABAADD9F7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Plugin", "Source\Source.vcxproj", "{5BC03E6C-E852-4A3A-8C72-065ABAADD9F7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{99324208-6A16-49B7-B98B-15B1935810B0} = {99324208-6A16-49B7-B98B-15B1935810B0}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{72272F8C-D51E-47BA-9D37-8CC582947173}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KlemmUI", "Dependencies\KlemmUI\KlemmUI.vcxproj", "{99324208-6A16-49B7-B98B-15B1935810B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D3232304-BC38-478F-B93F-B87C6616753B}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +34,20 @@ Global
 		{5BC03E6C-E852-4A3A-8C72-065ABAADD9F7}.Release|x64.Build.0 = Release|x64
 		{5BC03E6C-E852-4A3A-8C72-065ABAADD9F7}.Release|x86.ActiveCfg = Release|Win32
 		{5BC03E6C-E852-4A3A-8C72-065ABAADD9F7}.Release|x86.Build.0 = Release|Win32
+		{99324208-6A16-49B7-B98B-15B1935810B0}.Debug|x64.ActiveCfg = Debug|x64
+		{99324208-6A16-49B7-B98B-15B1935810B0}.Debug|x64.Build.0 = Debug|x64
+		{99324208-6A16-49B7-B98B-15B1935810B0}.Debug|x86.ActiveCfg = Debug|x64
+		{99324208-6A16-49B7-B98B-15B1935810B0}.Debug|x86.Build.0 = Debug|x64
+		{99324208-6A16-49B7-B98B-15B1935810B0}.Release|x64.ActiveCfg = Release|x64
+		{99324208-6A16-49B7-B98B-15B1935810B0}.Release|x64.Build.0 = Release|x64
+		{99324208-6A16-49B7-B98B-15B1935810B0}.Release|x86.ActiveCfg = Release|x64
+		{99324208-6A16-49B7-B98B-15B1935810B0}.Release|x86.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{99324208-6A16-49B7-B98B-15B1935810B0} = {72272F8C-D51E-47BA-9D37-8CC582947173}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61E1640B-F080-47BA-BCF1-B25F89D2C2C9}
