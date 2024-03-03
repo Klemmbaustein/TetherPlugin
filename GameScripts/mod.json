@@ -1,0 +1,21 @@
+{
+  "Name": "Klemmbaustein.TetherMod",
+  "Description": "A mod responsible for integrating the Tether mod manager into the game.",
+  "Version": "0.0.1",
+  "LoadPriority": 2,
+  "ConVars": [
+	{
+	  "Name": "reload_map",
+	  "DefaultValue": "0"
+	}
+  ],
+  "Scripts": [
+	{
+	  "Path": "tether_init.nut",
+	  "RunOn": "UI",
+	  "UICallback": {
+		"After": "TetherInstallerInit"
+	  }
+	}
+  ]
+}

@@ -83,13 +83,13 @@ void Init(IPluginCallbacks* self, HMODULE module, NorthstarData* data, char relo
 	init_ns_interface(module, data);
 	sys_init();
 
-	ns_log(LOG_INFO, "initializing");
+	ns_log(LOG_INFO, "Initializing...");
 
 	if (reloaded)
 		reinitialize();
 
 	ns_log(LOG_INFO, "Successfully initialized");
-	InitApp();
+
 }
 
 void Finalize(IPluginCallbacks* self)
@@ -147,8 +147,6 @@ void OnSqvmDestroyed(IPluginCallbacks* self, CSquirrelVM* c_sqvm)
 
 void OnLibraryLoaded(IPluginCallbacks* self, HMODULE module, const char* name)
 {
-	ns_logf(LOG_INFO, "loaded library %s", name);
-
 	if (strcmp(name, "server.dll") == 0) {
 		sv_initialize(module);
 		return;
@@ -167,18 +165,21 @@ void OnLibraryLoaded(IPluginCallbacks* self, HMODULE module, const char* name)
 
 void RunFrame(IPluginCallbacks* self) 
 {
-	UpdateApp();
 }
 
-IPluginCallbacks g_pluginCallbacks = {
-	.vftable = &(struct IPluginCallbacks_vftable
-	){.Init = Init,
-	  .Finalize = Finalize,
-	  .Unload = Unload,
-	  .OnSqvmCreated = OnSqvmCreated,
-	  .OnSqvmDestroyed = OnSqvmDestroyed,
-	  .OnLibraryLoaded = OnLibraryLoaded,
-	  .RunFrame = RunFrame}};
+IPluginCallbacks g_pluginCallbacks = 
+{
+	.vftable = &(struct IPluginCallbacks_vftable)
+	{
+		.Init = Init,
+		.Finalize = Finalize,
+		.Unload = Unload,
+		.OnSqvmCreated = OnSqvmCreated,
+		.OnSqvmDestroyed = OnSqvmDestroyed,
+		.OnLibraryLoaded = OnLibraryLoaded,
+		.RunFrame = RunFrame
+	}
+};
 
 void* CreatePluginCallbacks() { return &g_pluginCallbacks; }
 
