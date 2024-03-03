@@ -4,10 +4,10 @@
   <PropertyGroup>
 	
 	<!-- The path to your titanfall 2 installation. -->
-	<TitanfallDir>D:\EA\Titanfall2</TitanfallDir>
+	<TitanfallDir>Your game path here</TitanfallDir>
 	
 	<!-- The name of the profile the package should be placed into. Leave empty to ignore. -->
-	<ProfileName>R2Northstar</ProfileName>
+	<ProfileName></ProfileName>
 	
   </PropertyGroup>
   
