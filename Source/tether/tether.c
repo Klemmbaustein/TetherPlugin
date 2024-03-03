@@ -3,8 +3,9 @@
 #include <interfaces/sys.h>
 
 typedef void(*LogFn)(const char* msg, int sev);
-typedef void(*TetherInitFn)(LogFn log, bool* reloadPtr);
+typedef void(*TetherInitFn)(LogFn log, bool* reloadPtr, char* newServerBuffer);
 
+char tether_newMapBuffer[128];
 static bool isRunning = false;
 bool tether_shouldReload = false;
 
@@ -19,6 +20,8 @@ void tether_open()
 	{
 		return;
 	}
+
+	memset(tether_newMapBuffer, 0, sizeof(tether_newMapBuffer));
 	ns_log(LOG_INFO, "Opening Tether...");
 
 	wchar_t path[MAX_PATH + 40];
@@ -81,6 +84,6 @@ void tether_open()
 	ns_log(LOG_INFO, "Starting Tether...");
 
 	TetherInitFn initFunc = GetProcAddress(tetherDll, "LoadInstaller");
-	initFunc(tether_log, &tether_shouldReload);
+	initFunc(tether_log, &tether_shouldReload, tether_newMapBuffer);
 	isRunning = true;
 }

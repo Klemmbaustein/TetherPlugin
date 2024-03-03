@@ -23,6 +23,16 @@ SQRESULT Script_TetherCheckReloadMods(HSquirrelVM* sqvm)
 	return SQRESULT_NOTNULL;
 }
 
+SQRESULT Script_TetherCheckConnectServer(HSquirrelVM* sqvm)
+{
+	SQRelay* api = sqapi(SC_UI);
+
+	api->sq_pushstring(sqvm, tether_newMapBuffer, strlen(tether_newMapBuffer));
+	memset(tether_newMapBuffer, 0, sizeof(tether_newMapBuffer));
+
+	return SQRESULT_NOTNULL;
+}
+
 // internally used linked list to keep track of registered squirrel native
 // closures
 struct SQFunctionRegistrationList;
@@ -48,6 +58,11 @@ void ui_register_native_closures(CSquirrelVM* sqvm)
 	sv_bind_native_closure(
 		sqvm, "bool", "TetherCheckReloadMods", "", "Checks if Tether sent a message to reload all mods",
 		Script_TetherCheckReloadMods
+	);
+
+	sv_bind_native_closure(
+		sqvm, "string", "TetherCheckConnectServer", "", "Checks if Tether sent a message to connect to a server by it's ID-",
+		Script_TetherCheckConnectServer
 	);
 }
 

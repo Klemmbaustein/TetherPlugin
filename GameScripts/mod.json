@@ -11,6 +11,10 @@
   ],
   "Scripts": [
 	{
+	  "Path": "tether_connect_server.nut",
+	  "RunOn": "UI"
+	},
+	{
 	  "Path": "tether_init.nut",
 	  "RunOn": "UI",
 	  "UICallback": {

@@ -1,6 +1,7 @@
 global function TetherInstallerInit
+global function TetherShowLoadDialog
 
-void function DisplayLoadingDialog(string Title, string Description)
+void function TetherShowLoadDialog(string Title, string Description)
 {
 	CloseAllDialogs()
 	DialogData dialogData
@@ -23,7 +24,7 @@ void function ReloadModsDialog(bool mightRequireReload)
 	{
 		message += "Some mods might only fully reload when re-joining the game";
 	}
-	DisplayLoadingDialog("Reloading", message)
+	TetherShowLoadDialog("Reloading", message)
 }
 
 bool function InLobby()
@@ -42,13 +43,20 @@ void function TetherInstallerUpdate()
 		}
 		ReloadMods()
 	}
+
+	string ConnectTarget = TetherCheckConnectServer()
+
+	if (ConnectTarget != "")
+	{
+		TetherConnectToServer(ConnectTarget)
+	}
 }
 
 void function TetherInstallerThread()
 {
 	if (GetConVarBool("reload_map"))
 	{
-		wait 1
+		WaitFrame()
 		ReloadModsDialog(!InLobby())
 		ClientCommand("map " + uiGlobal.loadedLevel)
 		SetConVarBool("reload_map", false)
