@@ -4,7 +4,8 @@ $package_name = "Klemmbaustein-Tether-0.0.1"
 
 mkdir Build/$package_name/mods/Klemmbaustein.Tether/ -fo
 
-cp TetherInstaller/NorthstarInstaller/Data Build/$package_name/plugins/bin -r -fo
+cp TetherInstaller/NorthstarInstaller/Data Build/$package_name/plugins/bin/ -r -fo
+cp TetherInstaller/KlemmUI/lib/Release/SDL2.dll Build/$package_name/plugins/bin/
 
 cp -r -fo GameScripts/* Build/$package_name/mods/Klemmbaustein.Tether/
 

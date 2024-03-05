@@ -5,8 +5,13 @@
   "LoadPriority": 2,
   "ConVars": [
 	{
-	  "Name": "reload_map",
+	  "Name": "tether_reload_map",
 	  "DefaultValue": "0"
+	},
+	{
+	  "Name": "tether_launch_on_startup",
+	  "DefaultValue": "1",
+	  "Flags": 16777232
 	}
   ],
   "Scripts": [
@@ -15,11 +20,18 @@
 	  "RunOn": "UI"
 	},
 	{
-	  "Path": "tether_init.nut",
+	  "Path": "tether_ui.nut",
 	  "RunOn": "UI",
 	  "UICallback": {
 		"After": "TetherInstallerInit"
 	  }
+	}
+  ],
+  "ConCommands": [
+	{
+	  "Name": "tether_launch",
+	  "Context": "UI",
+	  "Function": "TetherLaunchCmd"
 	}
   ]
 }

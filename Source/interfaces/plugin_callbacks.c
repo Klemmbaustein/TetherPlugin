@@ -94,37 +94,11 @@ void Init(IPluginCallbacks* self, HMODULE module, NorthstarData* data, char relo
 
 void Finalize(IPluginCallbacks* self)
 {
-  /*
-   * Get interfaces from other plugins you depend on here like this
-   *
-   * HMODULE my_dependency_module = GetModuleHandleA("MyDependency.dll");
-   * if(my_dependency_module)
-   * {
-   * 	void* my_dependency_interface = GetProcAddress(my_dependency_module,
-   * "CreateInterface");
-   * 	...
-   * }
-   */
-
-  ns_log(LOG_INFO, "Finalized.");
 }
 
 bool Unload(IPluginCallbacks* self)
 {
 	ns_log(LOG_INFO, "Unloading.");
-
-	/*
-	 * If this returns `false`, the plugin *will not be unloaded*.
-	 * It might be a good idea to never unload the plugin in builts meant to be distributed to increase stability since
-	 * plugins are (as of right now) only meant to be reloaded / unloaded at runtime for development purposes.
-	 * (This might change)
-	 *
-	 * #if DEV
-	 * return true;
-	 * #else
-	 * return false;
-	 * #endif
-	 */
 
 	return true;
 }

@@ -3,11 +3,12 @@
 #include <interfaces/sys.h>
 
 typedef void(*LogFn)(const char* msg, int sev);
-typedef void(*TetherInitFn)(LogFn log, bool* reloadPtr, char* newServerBuffer);
+typedef void(*TetherInitFn)(LogFn log, bool* reloadPtr, char* newServerBuffer, bool* isRunningPtr);
 
 char tether_newMapBuffer[128];
 static bool isRunning = false;
 bool tether_shouldReload = false;
+HINSTANCE tetherDll = NULL;
 
 void tether_log(const char* msg, int sev)
 {
@@ -18,6 +19,14 @@ void tether_open()
 {
 	if (isRunning)
 	{
+		return;
+	}
+
+	if (tetherDll)
+	{
+		TetherInitFn initFunc = GetProcAddress(tetherDll, "LoadInstaller");
+		initFunc(tether_log, &tether_shouldReload, tether_newMapBuffer, &isRunning);
+		isRunning = true;
 		return;
 	}
 
@@ -70,7 +79,7 @@ void tether_open()
 	DLL_DIRECTORY_COOKIE cookie = AddDllDirectory(path);
 	wcscat(path, L"/TetherInstaller.dll");
 
-	HINSTANCE tetherDll = LoadLibraryEx(path, NULL, LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR | LOAD_LIBRARY_SEARCH_DEFAULT_DIRS);
+	tetherDll = LoadLibraryEx(path, NULL, LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR | LOAD_LIBRARY_SEARCH_DEFAULT_DIRS);
 
 	RemoveDllDirectory(cookie);
 
@@ -84,6 +93,7 @@ void tether_open()
 	ns_log(LOG_INFO, "Starting Tether...");
 
 	TetherInitFn initFunc = GetProcAddress(tetherDll, "LoadInstaller");
-	initFunc(tether_log, &tether_shouldReload, tether_newMapBuffer);
+	initFunc(tether_log, &tether_shouldReload, tether_newMapBuffer, &isRunning);
 	isRunning = true;
+	tether_log(GetCommandLineA(), 0);
 }

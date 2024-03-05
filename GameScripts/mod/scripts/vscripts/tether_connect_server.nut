@@ -18,9 +18,14 @@ void function TetherConnectToServerThread(string serverUid)
 
 	TetherShowLoadDialog("#CONNECTING", "#DIALOG_AUTHENTICATING_MASTERSERVER");
 
-	while ( GetConVarInt( "ns_has_agreed_to_send_token" ) != NS_AGREED_TO_SEND_TOKEN || time + 15.0 > Time() )
+	while ( time + 15.0 > Time() )
 	{
-		if ( ( NSIsMasterServerAuthenticated() && IsStryderAuthenticated() ) || GetConVarBool( "ns_auth_allow_insecure" ) )
+		if (GetConVarInt( "ns_has_agreed_to_send_token" ) != NS_AGREED_TO_SEND_TOKEN)
+		{
+			return
+		}
+
+		if ( ( NSIsMasterServerAuthenticated() || IsStryderAuthenticated() ) || GetConVarBool( "ns_auth_allow_insecure" ) )
 			break
 			
 		WaitFrame()

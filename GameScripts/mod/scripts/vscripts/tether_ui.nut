@@ -1,5 +1,12 @@
 global function TetherInstallerInit
 global function TetherShowLoadDialog
+global function TetherLaunchCmd
+
+void function TetherLaunchCmd()
+{
+	print("Launching tether from console command...")
+	LaunchTether()
+}
 
 void function TetherShowLoadDialog(string Title, string Description)
 {
@@ -32,16 +39,27 @@ bool function InLobby()
 	return uiGlobal.loadedLevel == "mp_lobby"
 }
 
-void function TetherInstallerUpdate()
+bool function TetherInstallerUpdate()
 {
 	if (TetherCheckReloadMods())
 	{
 		ReloadModsDialog(!InLobby())
 		if (InLobby())
 		{
-			SetConVarBool("reload_map", true)
+			SetConVarBool("tether_reload_map", true)
 		}
-		ReloadMods()
+		if (uiGlobal.loadedLevel == "")
+		{
+			ReloadMods()
+		}
+		else
+		{
+			ClientCommand("reload_mods")
+		}
+		WaitFrame()
+		TetherInstallerInit()
+		CloseAllDialogs()
+		return false
 	}
 
 	string ConnectTarget = TetherCheckConnectServer()
@@ -50,28 +68,38 @@ void function TetherInstallerUpdate()
 	{
 		TetherConnectToServer(ConnectTarget)
 	}
+	return true
 }
 
 void function TetherInstallerThread()
 {
-	if (GetConVarBool("reload_map"))
+	if (GetConVarBool("tether_reload_map"))
 	{
-		WaitFrame()
 		ReloadModsDialog(!InLobby())
 		ClientCommand("map " + uiGlobal.loadedLevel)
-		SetConVarBool("reload_map", false)
+		SetConVarBool("tether_reload_map", false)
 	}
 
-	while (true)
+	while (TetherInstallerUpdate())
 	{
-		TetherInstallerUpdate()
-		WaitFrame()
+		wait 10
 	}
+}
+
+void function TetherInstallerModSettings()
+{
+	ModSettings_AddModTitle("Tether integration")
+	ModSettings_AddModCategory("#GENERAL")
+	ModSettings_AddButton("Open Tether", LaunchTether)
+	ModSettings_AddEnumSetting("tether_launch_on_startup", "Open on startup", ["No", "Yes"])
 }
 
 void function TetherInstallerInit()
 {
-	LaunchTether();
-
+	TetherInstallerModSettings()
+	if (GetConVarBool("tether_launch_on_startup"))
+	{
+		LaunchTether()
+	}
 	thread TetherInstallerThread()
 }
