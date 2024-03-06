@@ -41,6 +41,18 @@ bool function InLobby()
 
 bool function TetherInstallerUpdate()
 {
+	string activeMode = "none";
+	
+	if (uiGlobal.loadedLevel != "" && uiGlobal.loadedLevel != "mp_lobby")
+	{
+		activeMode = GetCurrentPlaylistName();
+	}
+	else
+	{
+		//SetConVarString("tether_current_server_name", "");
+	}
+	TetherReceiveGameInfo(uiGlobal.loadedLevel, GetConVarString("tether_current_server_name"), activeMode)
+
 	if (TetherCheckReloadMods())
 	{
 		ReloadModsDialog(!InLobby())
@@ -82,7 +94,7 @@ void function TetherInstallerThread()
 
 	while (TetherInstallerUpdate())
 	{
-		wait 10
+		wait 0.5
 	}
 }
 
@@ -94,8 +106,16 @@ void function TetherInstallerModSettings()
 	ModSettings_AddEnumSetting("tether_launch_on_startup", "Open on startup", ["No", "Yes"])
 }
 
+void function OnConnect( ServerInfo server )
+{
+	SetConVarString("tether_current_server_name", server.name)
+	print(server.name)
+}
+
 void function TetherInstallerInit()
 {
+	AddConnectToServerCallback(OnConnect)
+
 	TetherInstallerModSettings()
 	if (GetConVarBool("tether_launch_on_startup"))
 	{

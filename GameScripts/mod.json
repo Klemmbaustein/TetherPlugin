@@ -12,6 +12,10 @@
 	  "Name": "tether_launch_on_startup",
 	  "DefaultValue": "1",
 	  "Flags": 16777232
+	},
+	{
+	  "Name": "tether_current_server_name",
+	  "DefaultValue": ""
 	}
   ],
   "Scripts": [

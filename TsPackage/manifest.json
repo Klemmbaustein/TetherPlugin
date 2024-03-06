@@ -1,0 +1,7 @@
+{
+  "name": "TetherPlugin",
+  "version_number": "0.0.1",
+  "website_url": "https://github.com/Klemmbaustein/TetherPlugin",
+  "description": "Adds an integration of the Tether mod manager into the game.",
+  "dependencies": []
+}

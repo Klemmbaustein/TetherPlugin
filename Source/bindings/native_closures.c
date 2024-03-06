@@ -33,6 +33,15 @@ SQRESULT Script_TetherCheckConnectServer(HSquirrelVM* sqvm)
 	return SQRESULT_NOTNULL;
 }
 
+SQRESULT Script_TetherReceiveGameInfo(HSquirrelVM* sqvm)
+{
+	SQRelay* api = sqapi(SC_UI);
+
+	tether_setGameInfo(api->sq_getstring(sqvm, 1), api->sq_getstring(sqvm, 2), api->sq_getstring(sqvm, 3));
+
+	return SQRESULT_NULL;
+}
+
 // internally used linked list to keep track of registered squirrel native
 // closures
 struct SQFunctionRegistrationList;
@@ -61,8 +70,13 @@ void ui_register_native_closures(CSquirrelVM* sqvm)
 	);
 
 	sv_bind_native_closure(
-		sqvm, "string", "TetherCheckConnectServer", "", "Checks if Tether sent a message to connect to a server by it's ID-",
+		sqvm, "string", "TetherCheckConnectServer", "", "Checks if Tether sent a message to connect to a server by it's ID",
 		Script_TetherCheckConnectServer
+	);
+
+	sv_bind_native_closure(
+		sqvm, "void", "TetherReceiveGameInfo", "string CurrentMap, string CurrentServer, string CurrentMode", "",
+		Script_TetherReceiveGameInfo
 	);
 }
 

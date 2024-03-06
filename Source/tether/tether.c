@@ -4,11 +4,14 @@
 
 typedef void(*LogFn)(const char* msg, int sev);
 typedef void(*TetherInitFn)(LogFn log, bool* reloadPtr, char* newServerBuffer, bool* isRunningPtr);
+typedef void(*TetherSetGameInfoFn)(const char* map, const char* server, const char* mode);
 
 char tether_newMapBuffer[128];
 static bool isRunning = false;
 bool tether_shouldReload = false;
 HINSTANCE tetherDll = NULL;
+
+TetherSetGameInfoFn tether_setGameInfoPtr = NULL;
 
 void tether_log(const char* msg, int sev)
 {
@@ -92,8 +95,15 @@ void tether_open()
 	}
 	ns_log(LOG_INFO, "Starting Tether...");
 
+	tether_setGameInfoPtr = GetProcAddress(tetherDll, "SetGameInfo");
+
 	TetherInitFn initFunc = GetProcAddress(tetherDll, "LoadInstaller");
 	initFunc(tether_log, &tether_shouldReload, tether_newMapBuffer, &isRunning);
 	isRunning = true;
 	tether_log(GetCommandLineA(), 0);
+}
+
+void tether_setGameInfo(const char* map, const char* server, const char* mode)
+{
+	tether_setGameInfoPtr(map, server, mode);
 }

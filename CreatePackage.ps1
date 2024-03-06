@@ -8,6 +8,7 @@ cp TetherInstaller/NorthstarInstaller/Data Build/$package_name/plugins/bin/ -r -
 cp TetherInstaller/KlemmUI/lib/Release/SDL2.dll Build/$package_name/plugins/bin/
 
 cp -r -fo GameScripts/* Build/$package_name/mods/Klemmbaustein.Tether/
+cp -r -fo TsPackage/* Build/$package_name
 
 $profile_name = $args[1]
 $game_dir = $args[0]
