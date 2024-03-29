@@ -100,7 +100,6 @@ void tether_open()
 	TetherInitFn initFunc = GetProcAddress(tetherDll, "LoadInstaller");
 	initFunc(tether_log, &tether_shouldReload, tether_newMapBuffer, &isRunning);
 	isRunning = true;
-	tether_log(GetCommandLineA(), 0);
 }
 
 void tether_setGameInfo(const char* map, const char* server, const char* mode)

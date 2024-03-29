@@ -1,0 +1,1 @@
+msbuild /p:Configuration=Plugin /p:CI_BUILD="-1" /p:Platform=x64

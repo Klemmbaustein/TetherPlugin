@@ -109,7 +109,6 @@ void function TetherInstallerModSettings()
 void function OnConnect( ServerInfo server )
 {
 	SetConVarString("tether_current_server_name", server.name)
-	print(server.name)
 }
 
 void function TetherInstallerInit()
